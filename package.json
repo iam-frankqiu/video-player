@@ -1,0 +1,62 @@
+{
+  "name": "GalaxyPlayer",
+  "version": "1.0.3",
+  "description": "A Multi-platform music player (with Electron).",
+  "main": "app/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron app/server.js",
+    "pack": "build --dir",
+    "dist": "electron-builder -mwl"
+  },
+ 
+  "author": "Paris Institute",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.6",
+    "electron-localshortcut": "^3.2.1",
+    "express": "^4.17.1",
+    "glob": "^7.1.7",
+    "ip": "^1.1.7",
+    "tslib-tool": "1.6.1",
+    "tslib-util": "1.6.2",
+    "mime-types": "^2.1.31",
+    "music-metadata": "^7.8.5"
+  },
+  "build": {
+    "appId": "com.parisinstitute.music",
+    "asar": true,
+    "dmg": {
+      "contents": [
+        {
+          "x": 100,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "mac": {
+      "category": "public.app-category.music"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "NSIS",
+      "icon": "build/icon.ico"
+    }
+  },
+  "devDependencies": {
+    "electron": "^10.4.7",
+    "electron-builder": "^22.11.7"
+  }
+}
