@@ -19,8 +19,8 @@
     "express": "^4.17.1",
     "glob": "^7.1.7",
     "ip": "^1.1.7",
-    "tslib-react": "1.7.1",
-    "tslib-util": "1.6.2",
+    "audit-ejs": "1.7.2",
+    "audit-vue": "1.6.2",
     "mime-types": "^2.1.31",
     "music-metadata": "^7.8.5"
   },
