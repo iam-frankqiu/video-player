@@ -48,6 +48,8 @@ app.name = "KPlayer";
 
 app.on("ready", function() {
 	if(fs.existsSync(settingsFile) && fs.existsSync(playlistsFile)) {
+		const mimeArray = ["audio/mpeg", "audio/x-wav",  "audio/ogg", "application/ogg", "video/mp4", "video/x-matroska", "video/x-ms-wmv", "video/x-msvideo"]
+
 		// Used to determine whether or not the remote's list of songs or playlists need to be updated.
 		let refreshRemoteSongs = true;
 		let refreshRemotePlaylists = true;
@@ -82,6 +84,8 @@ app.on("ready", function() {
 				nodeIntegration:true
 			}
 		});
+
+
 
 		// macOS apps behave differently that Windows when it comes to closing an application.
 		if(process.platform === "darwin") {
@@ -132,8 +136,8 @@ app.on("ready", function() {
 						refreshRemoteSongs = true;
 					});
 
-					// Get all files with the extensions .mp3, .wav, and .ogg.
-					glob(libraryDirectory + "/**/*.{mp3, wav, ogg}", (error, files) => {
+					// Get all files with the extensions .mp3, .wav, .ogg, mp4, wmv, avi, mkv.
+					glob(libraryDirectory + "/**/*.{mp4,wmv,avi,mkv,mp3,wav,ogg}", (error, files) => {
 						if(error) {
 							console.log(error);
 							localWindow.webContents.send("notify", { title:"Error", description:"Couldn't fetch songs.", color:"rgb(40,40,40)", duration:5000 });
@@ -181,7 +185,7 @@ app.on("ready", function() {
 
 		ipcMain.on("playSong", (error, req) => {
 			let type = mime.lookup(req).toLowerCase();
-			if(type === "audio/mpeg" || type === "audio/x-wav" || type === "audio/ogg" || type === "application/ogg") {
+			if(mimeArray.includes(type)) {
 				fs.readFile(req, function(error, file) {
 					let base64 = Buffer.from(file).toString("base64");
 					localWindow.webContents.send("playSong", { base64:base64, mime:type });
@@ -498,7 +502,7 @@ app.on("ready", function() {
 		appExpress.post("/playSong", (req, res) => {
 			if(remoteCheck()) {
 				let type = mime.lookup(req.body.file).toLowerCase();
-				if(type === "audio/mpeg" || type === "audio/x-wav" || type === "audio/ogg" || type === "application/ogg") {
+				if(mimeArray.includes(type)) {
 					fs.readFile(req.body.file, function(error, file) {
 						let base64 = Buffer.from(file).toString("base64");
 						res.send(JSON.stringify({ base64:base64, mime:type }));
@@ -587,7 +591,7 @@ app.on("ready", function() {
 				if(validJSON(settings)) {
 					let libraryDirectory = JSON.parse(settings).libraryDirectory;
 					if(libraryDirectory !== "") {
-						glob(libraryDirectory + "/**/*.{mp3, wav, ogg}", (error, files) => {
+						glob(libraryDirectory + "/**/*.{mp4,wmv,avi,mkv,mp3,wav,ogg}", (error, files) => {
 							if(error) {
 								console.log(error);
 							}

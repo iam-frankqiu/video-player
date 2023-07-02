@@ -167,18 +167,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	buttonSongs.addEventListener("click", () => {
 		showPage("songs");
+		hideAudioPlayer();
 	});
 
 	buttonAlbums.addEventListener("click", () => {
 		showPage("albums");
+		hideAudioPlayer();
 	});
 
 	buttonArtists.addEventListener("click", () => {
 		showPage("artists");
+		hideAudioPlayer();
 	});
 
 	buttonPlaylists.addEventListener("click", () => {
 		showPage("playlists");
+		hideAudioPlayer();
 	});
 
 	buttonSettings.addEventListener("click", () => {

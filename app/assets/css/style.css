@@ -340,7 +340,7 @@ button, input, svg {
 .audio-banner-wrapper {
 	position:absolute;
 	z-index:90;
-	bottom:80px;
+	top:40px;
 	right:0;
 	height:30px;
 	box-shadow:var(--shadow-darker);
@@ -375,13 +375,16 @@ button, input, svg {
 .audio-banner-wrapper .close-audio-player {
 	right:0;
 }
-
+.audio-file {
+    width: 100%;
+    height: calc(100% - 80px);
+}
 .audio-player {
 	position:absolute;
 	z-index:91;
 	bottom:0;
 	right:0;
-	height:80px;
+	height:calc(100% - 70px);
 	width:calc(100% - 200px);
 	background:var(--blue-medium);
 }
@@ -437,6 +440,7 @@ button, input, svg {
 	fill:var(--text-darker);
 }
 .audio-duration {
+	bottom: 0;
 	text-align:center;
 	display:block;
 	width:80px;
@@ -461,7 +465,7 @@ button, input, svg {
 	position:absolute;
 	padding:0;
 	margin:0;
-	top:25px;
+	bottom:25px;
 	left:120px;
 	outline:none;
 	opacity:0.8;
@@ -488,7 +492,7 @@ button, input, svg {
 	position:absolute;
 	padding:0;
 	margin:0;
-	top:30px;
+	bottom:30px;
 	left:calc(25% + 80px + 80px);
 	outline:none;
 	opacity:0.8;
